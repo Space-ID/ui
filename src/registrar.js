@@ -47,7 +47,7 @@ function checkArguments({
   if (!legacyAuctionRegistrarAddress)
     throw 'No legacy auction address given to Registrar class'
 
-  if (!ethAddress) throw 'No .eth address given to Registrar class'
+  if (!ethAddress) throw 'No .bnb address given to Registrar class'
 
   if (!provider) throw 'Provider is required for Registrar'
 
@@ -109,9 +109,9 @@ export default class Registrar {
   async getAddress(name) {
     const provider = await getProvider()
     const hash = namehash(name)
-    const resolverAddr = await this.ENS.resolver(hash)
+    const resolverAddr = await this.ENS.resolver(hash) // public resolver
     const Resolver = getResolverContract({ address: resolverAddr, provider })
-    return Resolver['addr(bytes32)'](hash)
+    return Resolver['addr(bytes32)'](hash) // resolve to price oracle
   }
 
   async getText(name, key) {
@@ -135,7 +135,7 @@ export default class Registrar {
   async getLegacyEntry(label) {
     let legacyEntry
     try {
-      const Registrar = this.legacyAuctionRegistrar
+      const Registrar = this.legacyAuctionRegistrar //BaseRegistrarImplementation
       let deedOwner = '0x0'
       const entry = await Registrar.entries(labelhash(label))
       if (parseInt(entry[1], 16) !== 0) {
@@ -322,14 +322,14 @@ export default class Registrar {
   }
 
   async getEthPrice() {
-    const contractAddress = await this.getAddress('eth-usd.data.eth')
+    const contractAddress = await this.getAddress('bnb-usd.data.bnb') // get price oracle addr
     const oracle = await this.getOracle(contractAddress)
     return (await oracle.latestAnswer()).toNumber() / 100000000
   }
 
   async getPriceCurve() {
     try {
-      return this.getText('oracle.ens.eth', 'algorithm')
+      return this.getText('oracle.sid.bnb', 'algorithm')
     } catch (e) {
       // If the record is not set, fallback to linear.
       return 'linear'
@@ -362,7 +362,7 @@ export default class Registrar {
     const permanentRegistrarController =
       permanentRegistrarControllerWithoutSigner.connect(signer)
     const account = await getAccount()
-    const resolverAddr = await this.getAddress('resolver.eth')
+    const resolverAddr = await this.getAddress('resolver.bnb')
     if (parseInt(resolverAddr, 16) === 0) {
       return permanentRegistrarController.makeCommitment(name, owner, secret)
     } else {
@@ -408,7 +408,7 @@ export default class Registrar {
     const account = await getAccount()
     const price = await this.getRentPrice(label, duration)
     const priceWithBuffer = getBufferedPrice(price)
-    const resolverAddr = await this.getAddress('resolver.eth')
+    const resolverAddr = await this.getAddress('resolver.bnb')
     if (parseInt(resolverAddr, 16) === 0) {
       const gasLimit = await this.estimateGasLimit(() => {
         return permanentRegistrarController.estimateGas.register(
@@ -636,7 +636,7 @@ export default class Registrar {
     } else {
       // Only available for the new DNSRegistrar
       if (!isOld && owner === user) {
-        const resolverAddress = await this.getAddress('resolver.eth')
+        const resolverAddress = await this.getAddress('resolver.bnb')
         return registrar.proveAndClaimWithResolver(
           claim.encodedName,
           data,
@@ -680,7 +680,7 @@ export default class Registrar {
 }
 
 async function getEthResolver(ENS) {
-  const resolverAddr = await ENS.resolver(namehash('eth'))
+  const resolverAddr = await ENS.resolver(namehash('bnb'))
   const provider = await getProvider()
   return getResolverContract({ address: resolverAddr, provider })
 }
@@ -690,28 +690,28 @@ export async function setupRegistrar(registryAddress) {
   const ENS = getENSContract({ address: registryAddress, provider })
   const Resolver = await getEthResolver(ENS)
 
-  let ethAddress = await ENS.owner(namehash('eth'))
+  let ethAddress = await ENS.owner(namehash('bnb'))
 
   let controllerAddress = await Resolver.interfaceImplementer(
-    namehash('eth'),
+    namehash('bnb'),
     permanentRegistrarInterfaceId
   )
   let legacyAuctionRegistrarAddress = await Resolver.interfaceImplementer(
-    namehash('eth'),
+    namehash('bnb'),
     legacyRegistrarInterfaceId
   )
 
   let bulkRenewalAddress = await Resolver.interfaceImplementer(
-    namehash('eth'),
+    namehash('bnb'),
     bulkRenewalInterfaceId
   )
 
   return new Registrar({
     registryAddress,
-    legacyAuctionRegistrarAddress,
-    ethAddress,
-    controllerAddress,
-    bulkRenewalAddress,
+    legacyAuctionRegistrarAddress, // BaseRegistrarImplementation
+    ethAddress, // HashRegistrar
+    controllerAddress, // BNBRegistrarController
+    bulkRenewalAddress, // BulkRenewal
     provider
   })
 }

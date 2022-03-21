@@ -53,6 +53,9 @@ const contracts = {
   },
   5: {
     registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
+  },
+  97: {
+    registry: '0x60fcB83fAd91335EBf6e9bB81d79b973bf3DA3e2'
   }
 }
 
@@ -69,6 +72,7 @@ export class ENS {
       registryAddress = contracts[networkId].registry
     }
 
+    console.log("sid registry: ", registryAddress)
     this.registryAddress = registryAddress
 
     const ENSContract = getENSContract({ address: registryAddress, provider })
