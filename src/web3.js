@@ -159,6 +159,10 @@ export function getNetworkProviderUrl(id) {
       return `https://rinkeby.infura.io/v3/90f210707d3c450f847659dc9a3436ea`
     case '5':
       return `https://goerli.infura.io/v3/90f210707d3c450f847659dc9a3436ea`
+    case '56':
+      return `https://bsc-dataseed.binance.org/`
+    case '97':
+      return `https://data-seed-prebsc-1-s1.binance.org:8545/`
     default:
       return `https://mainnet.infura.io/v3/90f210707d3c450f847659dc9a3436ea`
   }

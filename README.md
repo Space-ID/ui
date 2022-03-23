@@ -2,6 +2,10 @@
 
 Most functions in this library are async functions and therefore return promises which can be awaited or chained with `.then`.
 
+```
+npm publish --access public
+```
+
 ## Contents
 
 - Registry and Resolvers
