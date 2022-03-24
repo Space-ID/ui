@@ -49,7 +49,7 @@ const contracts = {
     registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
   },
   4: {
-    registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
+    registry: '0x4831d689843e4e02448ae323718D86BD58e0aD47'
   },
   5: {
     registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
@@ -72,7 +72,6 @@ export class ENS {
       registryAddress = contracts[networkId].registry
     }
 
-    console.log("sid registry: ", registryAddress)
     this.registryAddress = registryAddress
 
     const ENSContract = getENSContract({ address: registryAddress, provider })
@@ -126,7 +125,6 @@ export class ENS {
       const addr = await Resolver['addr(bytes32)'](namehash)
       return addr
     } catch (e) {
-      console.warn(
         'Error getting addr on the resolver contract, are you sure the resolver address is a resolver contract?'
       )
       return emptyAddress
@@ -531,6 +529,7 @@ export class ENS {
 
   async claimAndSetReverseRecordName(name, overrides = {}) {
     const reverseRegistrarAddr = await this.getOwner('addr.reverse')
+    console.log(reverseRegistrarAddr)
     const provider = await getProvider(0)
     const reverseRegistrarWithoutSigner = getReverseRegistrarContract({
       address: reverseRegistrarAddr,
@@ -547,7 +546,7 @@ export class ENS {
         ...overrides
       }
     }
-
+    console.log("come here", name)
     return reverseRegistrar.setName(name, overrides)
   }
 
