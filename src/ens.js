@@ -125,6 +125,7 @@ export class ENS {
       const addr = await Resolver['addr(bytes32)'](namehash)
       return addr
     } catch (e) {
+	console.warn(
         'Error getting addr on the resolver contract, are you sure the resolver address is a resolver contract?'
       )
       return emptyAddress
@@ -529,7 +530,6 @@ export class ENS {
 
   async claimAndSetReverseRecordName(name, overrides = {}) {
     const reverseRegistrarAddr = await this.getOwner('addr.reverse')
-    console.log(reverseRegistrarAddr)
     const provider = await getProvider(0)
     const reverseRegistrarWithoutSigner = getReverseRegistrarContract({
       address: reverseRegistrarAddr,
@@ -546,7 +546,6 @@ export class ENS {
         ...overrides
       }
     }
-    console.log("come here", name)
     return reverseRegistrar.setName(name, overrides)
   }
 
