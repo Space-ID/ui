@@ -399,7 +399,7 @@ export default class Registrar {
     return permanentRegistrarController.commit(commitment)
   }
 
-  async register(label, duration, secret) {
+  async register(label, duration, signature) {
     const permanentRegistrarControllerWithoutSigner =
       this.permanentRegistrarController
     const signer = await getSigner()
@@ -415,7 +415,7 @@ export default class Registrar {
           label,
           account,
           duration,
-          secret,
+          signature,
           { value: priceWithBuffer }
         )
       })
@@ -424,7 +424,7 @@ export default class Registrar {
         label,
         account,
         duration,
-        secret,
+        signature,
         { value: priceWithBuffer, gasLimit }
       )
     } else {
@@ -433,9 +433,9 @@ export default class Registrar {
           label,
           account,
           duration,
-          secret,
           resolverAddr,
           account,
+          signature,
           { value: priceWithBuffer }
         )
       })
@@ -444,9 +444,9 @@ export default class Registrar {
         label,
         account,
         duration,
-        secret,
         resolverAddr,
         account,
+        signature,
         { value: priceWithBuffer, gasLimit }
       )
     }
