@@ -2,14 +2,14 @@ import { Contract } from 'ethers'
 import {
   BaseRegistrarImplementation as permanentRegistrarContract,
   BulkRenewal as bulkRenewalContract,
-  ENS as ensContract,
-  ETHRegistrarController as permanentRegistrarControllerContract,
+  SID as ensContract,
+  BNBRegistrarControllerV2 as permanentRegistrarControllerContract,
   DNSRegistrar as dnsRegistrarContract,
   Resolver as resolverContract,
   ReverseRegistrar as reverseRegistrarContract,
   TestRegistrar as testRegistrarContract,
   AggregatorInterface as oracleContract
-} from '@ensdomains/ens-contracts'
+} from '@siddomains/sid-contracts'
 
 import { abi as oldResolverContract } from '@ensdomains/contracts/abis/ens-022/PublicResolver.json'
 import { abi as dnsRegistrarContractOld } from '@ensdomains/contracts/abis/dnsregistrar/DNSRegistrar.json'

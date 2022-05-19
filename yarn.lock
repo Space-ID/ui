@@ -1945,6 +1945,16 @@
     "@sentry/types" "5.30.0"
     tslib "^1.9.3"
 
+"@siddomains/sid-contracts@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@siddomains/sid-contracts/-/sid-contracts-0.1.1.tgz#44845114fc9ccfc13712c72311419db1a6a561f4"
+  integrity sha512-Y0KD6aBNf7TfS6FVJ6ApRGDJ/vdGAnUgxBcltmxdhOGJHPmVL3Ta0e1TAmyiK1dFURfFr6PvQ6srvVw0a8cBcQ==
+  dependencies:
+    "@ensdomains/buffer" "^0.0.13"
+    "@ensdomains/solsha1" "0.0.3"
+    "@openzeppelin/contracts" "^4.1.0"
+    dns-packet "^5.3.0"
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
