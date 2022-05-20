@@ -1945,10 +1945,10 @@
     "@sentry/types" "5.30.0"
     tslib "^1.9.3"
 
-"@siddomains/sid-contracts@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@siddomains/sid-contracts/-/sid-contracts-0.1.1.tgz#44845114fc9ccfc13712c72311419db1a6a561f4"
-  integrity sha512-Y0KD6aBNf7TfS6FVJ6ApRGDJ/vdGAnUgxBcltmxdhOGJHPmVL3Ta0e1TAmyiK1dFURfFr6PvQ6srvVw0a8cBcQ==
+"@siddomains/sid-contracts@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@siddomains/sid-contracts/-/sid-contracts-0.1.2.tgz#ea1d381e3f8d7851e14588e658802178c5fe7efa"
+  integrity sha512-rJ7nq6XWuTn7YQV3kVYWKnwixBcyCyQWXeNmp+7ED8fMbhah5jABOp+BwSmOgTrcD+hwA3TDWNlGOq7z9O/o3A==
   dependencies:
     "@ensdomains/buffer" "^0.0.13"
     "@ensdomains/solsha1" "0.0.3"
