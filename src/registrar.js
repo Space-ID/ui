@@ -57,7 +57,8 @@ function checkArguments({
 // Add 10% buffer to handle price fructuation.
 // Any unused value will be sent back by the smart contract.
 function getBufferedPrice(price) {
-  return price.mul(110).div(100)
+  let p = price[0]
+  return p.mul(110).div(100) // FIXME, we did not transfer back in the contract now
 }
 
 export default class Registrar {
