@@ -40,7 +40,8 @@ export async function setupWeb3({
     readOnly = true
     address = null
     if (infura) {
-      provider = getInfuraProvider(infura)
+      //provider = getInfuraProvider(infura)
+      provider = getJsonRpcProvider(infura)
     } else {
       provider = getDefaultProvider()
     }
@@ -162,7 +163,7 @@ export function getNetworkProviderUrl(id) {
     case '56':
       return `https://bsc-dataseed.binance.org/`
     case '97':
-      return `https://data-seed-prebsc-1-s1.binance.org:8545/`
+      return `https://apis-sj.ankr.com/bc19fe97c68d4a99a059465623e46b3e/bb63faaa8f178d26aac2969443ec7e73/binance/full/test`
     default:
       return `https://mainnet.infura.io/v3/90f210707d3c450f847659dc9a3436ea`
   }
