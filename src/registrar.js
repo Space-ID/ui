@@ -201,7 +201,9 @@ export default class Registrar {
       }
       // Returns registrar address if owned by new registrar.
       // Keep it as a separate call as this will throw exception for non existing domains
-      ret.ownerOf = await Registrar.ownerOf(labelHash)
+      const labelHash1 = labelhash(label.replace(".bnb", ""))
+      var bigNumb = BigInt(labelHash1).toString(10)
+      ret.ownerOf = await Registrar.ownerOf(bigNumb)
     } catch (e) {
       console.log('Error getting permanent registrar entry', e)
       return false
