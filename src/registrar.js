@@ -481,14 +481,15 @@ export default class Registrar {
     const signer = await getSigner()
     const permanentRegistrarController =
       permanentRegistrarControllerWithoutSigner.connect(signer)
-    const price = await this.getRentPrice(label, duration)
+    const labelHash1 = labelhash(label.replace(".bnb", ""))
+    const price = await this.getRentPrice(labelHash1, duration)
     const priceWithBuffer = getBufferedPrice(price)
     const gasLimit = await this.estimateGasLimit(() => {
-      return permanentRegistrarController.estimateGas.renew(label, duration, {
+      return permanentRegistrarController.estimateGas.renew(labelHash1, duration, {
         value: priceWithBuffer
       })
     })
-    return permanentRegistrarController.renew(label, duration, {
+    return permanentRegistrarController.renew(labelHash1, duration, {
       value: priceWithBuffer,
       gasLimit
     })
